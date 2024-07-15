@@ -1,0 +1,426 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Leaderboard API",
+        "contact": {
+            "name": "borisprogrm"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/Status": {
+            "get": {
+                "description": "Returns server status (success code)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "status"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultSuccess"
+                        }
+                    },
+                    "500": {
+                        "description": "Error response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultError"
+                        }
+                    }
+                }
+            }
+        },
+        "/leaderboard/DeleteScore": {
+            "put": {
+                "description": "Removes user data from a database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "description": "Body data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.DeleteScoreParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Error response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultError"
+                        }
+                    },
+                    "500": {
+                        "description": "Error response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultError"
+                        }
+                    }
+                }
+            }
+        },
+        "/leaderboard/GetScore": {
+            "put": {
+                "description": "Gets user data from a database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "description": "Body data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.GetScoreParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.GetScoreResultSuccess-dbprovider_UserProperties"
+                        }
+                    },
+                    "400": {
+                        "description": "Error response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultError"
+                        }
+                    },
+                    "500": {
+                        "description": "Error response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultError"
+                        }
+                    }
+                }
+            }
+        },
+        "/leaderboard/GetTop": {
+            "put": {
+                "description": "Returns data of users with maximum registered scores sorted in descending order of score, maximum nTop number of elements for a specific gameId",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "top"
+                ],
+                "parameters": [
+                    {
+                        "description": "Body data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.GetTopParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.GetTopResultSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Error response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultError"
+                        }
+                    },
+                    "500": {
+                        "description": "Error response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultError"
+                        }
+                    }
+                }
+            }
+        },
+        "/leaderboard/SendScore": {
+            "put": {
+                "description": "Stores user data in a database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "description": "Body data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.SendScoreParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Error response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultError"
+                        }
+                    },
+                    "500": {
+                        "description": "Error response",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ResultError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.DeleteScoreParams": {
+            "type": "object",
+            "required": [
+                "gameId",
+                "userId"
+            ],
+            "properties": {
+                "gameId": {
+                    "description": "Id of game (alphanumeric values)",
+                    "type": "string",
+                    "maxLength": 50,
+                    "x-order": "0",
+                    "example": "game1"
+                },
+                "userId": {
+                    "description": "Id of user (alphanumeric values)",
+                    "type": "string",
+                    "maxLength": 50,
+                    "x-order": "1",
+                    "example": "user1"
+                }
+            }
+        },
+        "controllers.GetScoreParams": {
+            "type": "object",
+            "required": [
+                "gameId",
+                "userId"
+            ],
+            "properties": {
+                "gameId": {
+                    "description": "Id of game (alphanumeric values)",
+                    "type": "string",
+                    "maxLength": 50,
+                    "x-order": "0",
+                    "example": "game1"
+                },
+                "userId": {
+                    "description": "Id of user (alphanumeric values)",
+                    "type": "string",
+                    "maxLength": 50,
+                    "x-order": "1",
+                    "example": "user1"
+                }
+            }
+        },
+        "controllers.GetScoreResultSuccess-dbprovider_UserProperties": {
+            "type": "object",
+            "required": [
+                "result"
+            ],
+            "properties": {
+                "result": {
+                    "description": "(Empty object if no data)",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/dbprovider.UserProperties"
+                        }
+                    ]
+                }
+            }
+        },
+        "controllers.GetTopParams": {
+            "type": "object",
+            "required": [
+                "gameId",
+                "nTop"
+            ],
+            "properties": {
+                "gameId": {
+                    "description": "Id of game (alphanumeric values)",
+                    "type": "string",
+                    "maxLength": 50,
+                    "x-order": "0",
+                    "example": "game1"
+                },
+                "nTop": {
+                    "description": "Number of users in top",
+                    "type": "integer",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "x-order": "1",
+                    "example": 100
+                }
+            }
+        },
+        "controllers.GetTopResultSuccess": {
+            "type": "object",
+            "required": [
+                "result"
+            ],
+            "properties": {
+                "result": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dbprovider.UserData"
+                    }
+                }
+            }
+        },
+        "controllers.ResultError": {
+            "type": "object",
+            "required": [
+                "error"
+            ],
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "Some server error"
+                }
+            }
+        },
+        "controllers.ResultSuccess": {
+            "type": "object",
+            "required": [
+                "result"
+            ],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "controllers.SendScoreParams": {
+            "type": "object",
+            "required": [
+                "gameId",
+                "score",
+                "userId"
+            ],
+            "properties": {
+                "gameId": {
+                    "description": "Id of game (alphanumeric values)",
+                    "type": "string",
+                    "maxLength": 50,
+                    "x-order": "0",
+                    "example": "game1"
+                },
+                "userId": {
+                    "description": "Id of user (alphanumeric values)",
+                    "type": "string",
+                    "maxLength": 50,
+                    "x-order": "1",
+                    "example": "user1"
+                },
+                "score": {
+                    "description": "User score",
+                    "type": "number",
+                    "minimum": 0,
+                    "x-order": "2",
+                    "example": 1500
+                },
+                "name": {
+                    "description": "User name",
+                    "type": "string",
+                    "maxLength": 50,
+                    "x-order": "3",
+                    "example": "John"
+                },
+                "params": {
+                    "description": "Additional payload",
+                    "type": "string",
+                    "maxLength": 255,
+                    "x-order": "4",
+                    "example": "some additional payload"
+                }
+            }
+        },
+        "dbprovider.UserData": {
+            "type": "object",
+            "required": [
+                "userId"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "params": {
+                    "type": "string"
+                },
+                "score": {
+                    "type": "number"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "dbprovider.UserProperties": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "params": {
+                    "type": "string"
+                },
+                "score": {
+                    "type": "number"
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
+    }
+}

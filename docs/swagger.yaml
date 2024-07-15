@@ -1,0 +1,293 @@
+definitions:
+  controllers.DeleteScoreParams:
+    properties:
+      gameId:
+        description: Id of game (alphanumeric values)
+        example: game1
+        maxLength: 50
+        type: string
+        x-order: "0"
+      userId:
+        description: Id of user (alphanumeric values)
+        example: user1
+        maxLength: 50
+        type: string
+        x-order: "1"
+    required:
+    - gameId
+    - userId
+    type: object
+  controllers.GetScoreParams:
+    properties:
+      gameId:
+        description: Id of game (alphanumeric values)
+        example: game1
+        maxLength: 50
+        type: string
+        x-order: "0"
+      userId:
+        description: Id of user (alphanumeric values)
+        example: user1
+        maxLength: 50
+        type: string
+        x-order: "1"
+    required:
+    - gameId
+    - userId
+    type: object
+  controllers.GetScoreResultSuccess-dbprovider_UserProperties:
+    properties:
+      result:
+        allOf:
+        - $ref: '#/definitions/dbprovider.UserProperties'
+        description: (Empty object if no data)
+    required:
+    - result
+    type: object
+  controllers.GetTopParams:
+    properties:
+      gameId:
+        description: Id of game (alphanumeric values)
+        example: game1
+        maxLength: 50
+        type: string
+        x-order: "0"
+      nTop:
+        description: Number of users in top
+        example: 100
+        maximum: 100
+        minimum: 1
+        type: integer
+        x-order: "1"
+    required:
+    - gameId
+    - nTop
+    type: object
+  controllers.GetTopResultSuccess:
+    properties:
+      result:
+        items:
+          $ref: '#/definitions/dbprovider.UserData'
+        type: array
+    required:
+    - result
+    type: object
+  controllers.ResultError:
+    properties:
+      error:
+        example: Some server error
+        type: string
+    required:
+    - error
+    type: object
+  controllers.ResultSuccess:
+    properties:
+      result:
+        example: success
+        type: string
+    required:
+    - result
+    type: object
+  controllers.SendScoreParams:
+    properties:
+      gameId:
+        description: Id of game (alphanumeric values)
+        example: game1
+        maxLength: 50
+        type: string
+        x-order: "0"
+      name:
+        description: User name
+        example: John
+        maxLength: 50
+        type: string
+        x-order: "3"
+      params:
+        description: Additional payload
+        example: some additional payload
+        maxLength: 255
+        type: string
+        x-order: "4"
+      score:
+        description: User score
+        example: 1500
+        minimum: 0
+        type: number
+        x-order: "2"
+      userId:
+        description: Id of user (alphanumeric values)
+        example: user1
+        maxLength: 50
+        type: string
+        x-order: "1"
+    required:
+    - gameId
+    - score
+    - userId
+    type: object
+  dbprovider.UserData:
+    properties:
+      name:
+        type: string
+      params:
+        type: string
+      score:
+        type: number
+      userId:
+        type: string
+    required:
+    - userId
+    type: object
+  dbprovider.UserProperties:
+    properties:
+      name:
+        type: string
+      params:
+        type: string
+      score:
+        type: number
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+info:
+  contact:
+    name: borisprogrm
+  title: Leaderboard API
+  version: 1.0.0
+paths:
+  /Status:
+    get:
+      description: Returns server status (success code)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            $ref: '#/definitions/controllers.ResultSuccess'
+        "500":
+          description: Error response
+          schema:
+            $ref: '#/definitions/controllers.ResultError'
+      tags:
+      - status
+  /leaderboard/DeleteScore:
+    put:
+      consumes:
+      - application/json
+      description: Removes user data from a database
+      parameters:
+      - description: Body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.DeleteScoreParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            $ref: '#/definitions/controllers.ResultSuccess'
+        "400":
+          description: Error response
+          schema:
+            $ref: '#/definitions/controllers.ResultError'
+        "500":
+          description: Error response
+          schema:
+            $ref: '#/definitions/controllers.ResultError'
+      tags:
+      - user
+  /leaderboard/GetScore:
+    put:
+      consumes:
+      - application/json
+      description: Gets user data from a database
+      parameters:
+      - description: Body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.GetScoreParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            $ref: '#/definitions/controllers.GetScoreResultSuccess-dbprovider_UserProperties'
+        "400":
+          description: Error response
+          schema:
+            $ref: '#/definitions/controllers.ResultError'
+        "500":
+          description: Error response
+          schema:
+            $ref: '#/definitions/controllers.ResultError'
+      tags:
+      - user
+  /leaderboard/GetTop:
+    put:
+      consumes:
+      - application/json
+      description: Returns data of users with maximum registered scores sorted in
+        descending order of score, maximum nTop number of elements for a specific
+        gameId
+      parameters:
+      - description: Body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.GetTopParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            $ref: '#/definitions/controllers.GetTopResultSuccess'
+        "400":
+          description: Error response
+          schema:
+            $ref: '#/definitions/controllers.ResultError'
+        "500":
+          description: Error response
+          schema:
+            $ref: '#/definitions/controllers.ResultError'
+      tags:
+      - top
+  /leaderboard/SendScore:
+    put:
+      consumes:
+      - application/json
+      description: Stores user data in a database
+      parameters:
+      - description: Body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.SendScoreParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            $ref: '#/definitions/controllers.ResultSuccess'
+        "400":
+          description: Error response
+          schema:
+            $ref: '#/definitions/controllers.ResultError'
+        "500":
+          description: Error response
+          schema:
+            $ref: '#/definitions/controllers.ResultError'
+      tags:
+      - user
+swagger: "2.0"

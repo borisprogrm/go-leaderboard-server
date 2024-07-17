@@ -8,7 +8,7 @@ lint:
 
 # Run tests
 test:
-	go test -tags=test -count=1 ./...
+	go test -tags=test -p=1 -count=1 ./...
 
 # Run tests with coverage computation
 test_coverage:

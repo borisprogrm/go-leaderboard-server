@@ -3,8 +3,10 @@ module go-leaderboard-server
 go 1.22.2
 
 require (
+	github.com/georgysavva/scany v1.2.2
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-errors/errors v1.5.1
+	github.com/go-sql-driver/mysql v1.8.1
 	github.com/jackc/pgx/v5 v5.6.0
 	github.com/rs/zerolog v1.32.0
 	github.com/stretchr/testify v1.9.0
@@ -18,6 +20,7 @@ require (
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect

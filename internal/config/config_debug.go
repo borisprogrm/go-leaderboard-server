@@ -12,6 +12,7 @@ import (
 	db_inmemory_provider "go-leaderboard-server/internal/db/inmemory"
 	//~ mongo_provider "go-leaderboard-server/internal/db/mongodb"
 	//~ postgre_provider "go-leaderboard-server/internal/db/postgresql"
+	//~ mysql_provider "go-leaderboard-server/internal/db/mysql"
 )
 
 func init() {
@@ -46,6 +47,17 @@ func init() {
 					IsDebug: true,
 				},
 				ConnStr: "postgres://admin:admpass@localhost:5432/GoLeaderboard",
+			},
+		},
+		*/
+		/* OR
+		Db: DbConfig{
+			Type: DBTYPE_MYSQL,
+			Config: &mysql_provider.MySqlProviderConfig{
+				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
+					IsDebug: true,
+				},
+				ConnStr: "admin:admpass@tcp(localhost:3306)/GoLeaderboard",
 			},
 		},
 		*/

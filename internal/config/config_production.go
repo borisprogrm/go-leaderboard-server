@@ -13,6 +13,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo/options"
 	//~ postgre_provider "go-leaderboard-server/internal/db/postgresql"
+	//~ mysql_provider "go-leaderboard-server/internal/db/mysql"
 )
 
 func init() {
@@ -38,6 +39,17 @@ func init() {
 					IsDebug: false,
 				},
 				ConnStr: os.Getenv("POSTGRES_CONNSTR"),
+			},
+		},
+		*/
+		/* OR
+		Db: DbConfig{
+			Type: DBTYPE_MYSQL,
+			Config: &mysql_provider.MySqlProviderConfig{
+				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
+					IsDebug: false,
+				},
+				ConnStr: os.Getenv("MYSQL_CONNSTR"),
 			},
 		},
 		*/

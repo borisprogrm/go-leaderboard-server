@@ -11,6 +11,7 @@ import (
 
 	db_inmemory_provider "go-leaderboard-server/internal/db/inmemory"
 	mongo_provider "go-leaderboard-server/internal/db/mongodb"
+	postgre_provider "go-leaderboard-server/internal/db/postgresql"
 	"go-leaderboard-server/internal/utils"
 )
 
@@ -38,6 +39,8 @@ func (s *LeaderboardService) Initialize(ctx context.Context, clock *utils.IClock
 		s.dbprovider = db_inmemory_provider.NewDbInMemoryProvider()
 	case config.DBTYPE_MONGO:
 		s.dbprovider = mongo_provider.NewMongoProvider()
+	case config.DBTYPE_POSTGRESQL:
+		s.dbprovider = postgre_provider.NewPostgreProvider()
 	default:
 		return errors.New("unknown DB provider type")
 	}

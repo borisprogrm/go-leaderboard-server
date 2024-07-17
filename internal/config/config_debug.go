@@ -10,6 +10,8 @@ import (
 	"os"
 
 	db_inmemory_provider "go-leaderboard-server/internal/db/inmemory"
+	//~ mongo_provider "go-leaderboard-server/internal/db/mongodb"
+	//~ postgre_provider "go-leaderboard-server/internal/db/postgresql"
 )
 
 func init() {
@@ -25,6 +27,28 @@ func init() {
 				},
 			},
 		},
+		/* OR
+		Db: DbConfig{
+			Type: DBTYPE_MONGO,
+			Config: &mongo_provider.MongoProviderConfig{
+				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
+					IsDebug: false,
+				},
+				Uri:     "mongodb://localhost:27017"
+			},
+		},
+		*/
+		/* OR
+		Db: DbConfig{
+			Type: DBTYPE_POSTGRESQL,
+			Config: &postgre_provider.PostgreProviderConfig{
+				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
+					IsDebug: true,
+				},
+				ConnStr: "postgres://admin:admpass@localhost:5432/GoLeaderboard",
+			},
+		},
+		*/
 		Cache: CacheConfig{
 			Type: CACHETYPE_SIMPLE,
 			Config: &cache_simple_provider.CacheSimpleProviderConfig{

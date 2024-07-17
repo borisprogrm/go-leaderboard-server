@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo/options"
+	//~ postgre_provider "go-leaderboard-server/internal/db/postgresql"
 )
 
 func init() {
@@ -29,6 +30,17 @@ func init() {
 				Options: options.Client().SetServerSelectionTimeout(5 * time.Second),
 			},
 		},
+		/* OR
+		Db: DbConfig{
+			Type: DBTYPE_POSTGRESQL,
+			Config: &postgre_provider.PostgreProviderConfig{
+				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
+					IsDebug: false,
+				},
+				ConnStr: os.Getenv("POSTGRES_CONNSTR"),
+			},
+		},
+		*/
 		Cache: CacheConfig{
 			Type: CACHETYPE_SIMPLE,
 			Config: &cache_simple_provider.CacheSimpleProviderConfig{

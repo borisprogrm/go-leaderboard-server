@@ -24,6 +24,7 @@ type Config struct {
 const (
 	DBTYPE_INMEMORY = iota
 	DBTYPE_MONGO
+	DBTYPE_POSTGRESQL
 )
 
 type DbConfig struct {

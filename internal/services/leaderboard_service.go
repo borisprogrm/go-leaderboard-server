@@ -13,6 +13,7 @@ import (
 	mongo_provider "go-leaderboard-server/internal/db/mongodb"
 	mysql_provider "go-leaderboard-server/internal/db/mysql"
 	postgre_provider "go-leaderboard-server/internal/db/postgresql"
+	redis_provider "go-leaderboard-server/internal/db/redis"
 	"go-leaderboard-server/internal/utils"
 )
 
@@ -38,6 +39,8 @@ func (s *LeaderboardService) Initialize(ctx context.Context, clock *utils.IClock
 	switch s.config.Db.Type {
 	case config.DBTYPE_INMEMORY:
 		s.dbprovider = db_inmemory_provider.NewDbInMemoryProvider()
+	case config.DBTYPE_REDIS:
+		s.dbprovider = redis_provider.NewRedisProvider()
 	case config.DBTYPE_MONGO:
 		s.dbprovider = mongo_provider.NewMongoProvider()
 	case config.DBTYPE_POSTGRESQL:

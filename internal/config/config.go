@@ -23,6 +23,7 @@ type Config struct {
 
 const (
 	DBTYPE_INMEMORY = iota
+	DBTYPE_REDIS
 	DBTYPE_MONGO
 	DBTYPE_POSTGRESQL
 	DBTYPE_MYSQL

@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo/options"
+	//~ redis_provider "go-leaderboard-server/internal/db/redis"
 	//~ postgre_provider "go-leaderboard-server/internal/db/postgresql"
 	//~ mysql_provider "go-leaderboard-server/internal/db/mysql"
 )
@@ -33,6 +34,21 @@ func init() {
 		},
 		/* OR
 		Db: DbConfig{
+			Type: DBTYPE_REDIS,
+			Config: &redis_provider.RedisProviderConfig{
+				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
+					IsDebug: true,
+				},
+				Opts: redis_provider.RedisOptions{
+					Addr: os.Getenv("REDIS_ADDR"),
+					Username: os.Getenv("REDIS_USER"),
+					Password: os.Getenv("REDIS_PASSWORD"),
+				},
+			},
+		},
+		*/
+		/* OR
+		Db: DbConfig{
 			Type: DBTYPE_POSTGRESQL,
 			Config: &postgre_provider.PostgreProviderConfig{
 				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
@@ -50,6 +66,8 @@ func init() {
 					IsDebug: false,
 				},
 				ConnStr: os.Getenv("MYSQL_CONNSTR"),
+				MaxOpenConns: 20,
+				MaxIdleConns: 20,
 			},
 		},
 		*/

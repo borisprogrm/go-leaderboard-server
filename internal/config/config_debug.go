@@ -10,6 +10,7 @@ import (
 	"os"
 
 	db_inmemory_provider "go-leaderboard-server/internal/db/inmemory"
+	//~ redis_provider "go-leaderboard-server/internal/db/redis"
 	//~ mongo_provider "go-leaderboard-server/internal/db/mongodb"
 	//~ postgre_provider "go-leaderboard-server/internal/db/postgresql"
 	//~ mysql_provider "go-leaderboard-server/internal/db/mysql"
@@ -30,12 +31,25 @@ func init() {
 		},
 		/* OR
 		Db: DbConfig{
+			Type: DBTYPE_REDIS,
+			Config: &redis_provider.RedisProviderConfig{
+				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
+					IsDebug: true,
+				},
+				Opts: redis_provider.RedisOptions{
+					Addr: "localhost:6379",
+				},
+			},
+		},
+		*/
+		/* OR
+		Db: DbConfig{
 			Type: DBTYPE_MONGO,
 			Config: &mongo_provider.MongoProviderConfig{
 				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
-					IsDebug: false,
+					IsDebug: true,
 				},
-				Uri:     "mongodb://localhost:27017"
+				Uri: "mongodb://localhost:27017"
 			},
 		},
 		*/

@@ -15,6 +15,7 @@ import (
 	//~ redis_provider "go-leaderboard-server/internal/db/redis"
 	//~ postgre_provider "go-leaderboard-server/internal/db/postgresql"
 	//~ mysql_provider "go-leaderboard-server/internal/db/mysql"
+	//~ dynamo_provider "go-leaderboard-server/internal/db/dynamodb"
 )
 
 func init() {
@@ -44,6 +45,21 @@ func init() {
 					Username: os.Getenv("REDIS_USER"),
 					Password: os.Getenv("REDIS_PASSWORD"),
 				},
+			},
+		},
+		*/
+		/* OR
+		Db: DbConfig{
+			Type: DBTYPE_DYNAMODB,
+			Config: &dynamo_provider.DynamoProviderConfig{
+				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
+					IsDebug: true,
+				},
+				Region:          os.Getenv("AWS_REGION"),
+				Endpoint:        os.Getenv("AWS_ENDPOINT"),
+				AccessKeyId:     os.Getenv("AWS_ACCESS_KEY_ID"),
+				SecretAccessKey: os.Getenv("AWS_SECRET_ACCESS_KEY"),
+				NShards:         4,
 			},
 		},
 		*/

@@ -9,6 +9,7 @@ import (
 	"go-leaderboard-server/internal/config"
 	dbprovider "go-leaderboard-server/internal/db"
 
+	dynamo_provider "go-leaderboard-server/internal/db/dynamodb"
 	db_inmemory_provider "go-leaderboard-server/internal/db/inmemory"
 	mongo_provider "go-leaderboard-server/internal/db/mongodb"
 	mysql_provider "go-leaderboard-server/internal/db/mysql"
@@ -41,6 +42,8 @@ func (s *LeaderboardService) Initialize(ctx context.Context, clock *utils.IClock
 		s.dbprovider = db_inmemory_provider.NewDbInMemoryProvider()
 	case config.DBTYPE_REDIS:
 		s.dbprovider = redis_provider.NewRedisProvider()
+	case config.DBTYPE_DYNAMODB:
+		s.dbprovider = dynamo_provider.NewDynamoProvider()
 	case config.DBTYPE_MONGO:
 		s.dbprovider = mongo_provider.NewMongoProvider()
 	case config.DBTYPE_POSTGRESQL:

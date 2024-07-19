@@ -14,6 +14,7 @@ import (
 	//~ mongo_provider "go-leaderboard-server/internal/db/mongodb"
 	//~ postgre_provider "go-leaderboard-server/internal/db/postgresql"
 	//~ mysql_provider "go-leaderboard-server/internal/db/mysql"
+	//~ dynamo_provider "go-leaderboard-server/internal/db/dynamodb"
 )
 
 func init() {
@@ -42,6 +43,21 @@ func init() {
 			},
 		},
 		*/
+		/* OR
+		Db: DbConfig{
+			Type: DBTYPE_DYNAMODB,
+			Config: &dynamo_provider.DynamoProviderConfig{
+				DBProviderBaseConfig: dbprovider.DBProviderBaseConfig{
+					IsDebug: true,
+				},
+				Region:          "local",
+				Endpoint:        "http://localhost:8000",
+				AccessKeyId:     "none",
+				SecretAccessKey: "none",
+				NShards:         4,
+			},
+		},
+		/*
 		/* OR
 		Db: DbConfig{
 			Type: DBTYPE_MONGO,

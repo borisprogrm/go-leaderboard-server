@@ -5,13 +5,13 @@ import "context"
 type UScoreType float64
 
 type UserProperties struct {
-	Score  UScoreType `json:"score" bson:"sc"`
-	Name   string     `json:"name,omitempty" bson:"nm,omitempty"`
-	Params string     `json:"params,omitempty" bson:"pl,omitempty"`
+	Score  UScoreType `json:"score" bson:"sc" dynamodbav:"sc"`
+	Name   string     `json:"name,omitempty" bson:"nm,omitempty" dynamodbav:"nm"`
+	Params string     `json:"params,omitempty" bson:"pl,omitempty" dynamodbav:"pl"`
 }
 
 type UserData struct {
-	UserId         string `json:"userId" bson:"uId" binding:"required"`
+	UserId         string `json:"userId" bson:"uId" dynamodbav:"uId" binding:"required"`
 	UserProperties `bson:",inline"`
 }
 

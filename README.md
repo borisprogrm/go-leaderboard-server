@@ -6,7 +6,7 @@ This is a demo Go project that implements server logic of the game leaderboard. 
 * Flexible modular structure.
 * Validation of request parameters.
 * Automatic generation of documentation based on the full OpenAPI specification and the ability to display it through Swagger UI.
-* Support for multiple relational and non-relational databases.
+* Support for multiple relational and non-relational databases: Redis, MongoDB, DynamoDB, PostgreSQL, MySQL and others.
 * Testing database functionality (unit tests) through docker containers.
 
 Please keep in mind that for a full launch in production this project lacks some important features, such as a request authorization mechanism.
@@ -61,11 +61,16 @@ Any available DB provider can be used depending on your needs.
 
 * **In-memory**. Simplest storage in RAM (per process). Only for testing purpose.
 
+* **Redis**. An open-source in-memory storage.
+
+* **DynamoDB**. A fully managed proprietary NoSQL database offered by Amazon.com as part of the Amazon Web Services. To create the necessary tables and indexes, use [dynamodb_setup.json](internal/db/dynamodb/dynamodb_setup.json)
+
 * **MongoDB**. A document-oriented NoSQL database product. To create the necessary collections and indexes, use script [mongodb_setup.js](internal/db/mongodb/mongodb_setup.js)
 
-> **NOTE**
-> More DB providers will be added soon...
+* **PostgreSQL**. A free and open-source relational database management system. To create the necessary tables and indexes, use script [postgresql_setup.sql](internal/db/postgresql/postgresql_setup.sql)
+
+* **MySQL**. An open-source relational database management system. To create the necessary tables and indexes, use script [mysql_setup.sql](internal/db/mysql/mysql_setup.sql)
 
 
 ## Keywords
-leaderboard, golang, gin, openapi, swagger, swagger ui, swaggo, make, docker, mongodb
+leaderboard, golang, gin, openapi, swagger, swagger ui, swaggo, make, docker, redis, dynamodb, mongodb, postgresql, mysql
